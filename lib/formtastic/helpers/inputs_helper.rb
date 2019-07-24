@@ -1,4 +1,4 @@
-§module Formtastic
+module Formtastic
   module Helpers
 
     # {#inputs} is used to wrap a series of form items in a `<fieldset>` and `<ol>`, with each item
