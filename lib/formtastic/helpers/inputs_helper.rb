@@ -336,7 +336,8 @@ module Formtastic
       # generated input.
       def association_columns(*by_associations) # @private
         if @object.present? && @object.class.respond_to?(:reflections)
-          @object.class.reflections.collect do |name, association_reflection|
+          @object.class.reflections.collect do |name, reflection|
+            association_reflection = Formtastic::Reflection.new(reflection)
             if by_associations.present?
               reflection_macro = if association_reflection.respond_to?(:macro)
                 association_reflection.macro
