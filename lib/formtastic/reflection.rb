@@ -1,11 +1,10 @@
 module Formtastic
   class Reflection
     delegate :options, :klass, to: :@_reflection
-    attr_reader :_reflection, :method
+    attr_reader :_reflection
 
-    def initialize(reflection, method)
+    def initialize(reflection)
       @_reflection = reflection
-      @method = method
     end
 
     def macro
@@ -15,11 +14,11 @@ module Formtastic
     def primary_key
       case macro
       when :has_and_belongs_to_many, :has_many, :references_and_referenced_in_many, :references_many
-        :"#{method.to_s.singularize}_ids"
+        :"#{_reflection.name.to_s.singularize}_ids"
       else
         return _reflection.foreign_key.to_sym if _reflection.respond_to?(:foreign_key)
         return _reflection.options[:foreign_key].to_sym unless _reflection.options[:foreign_key].blank?
-        :"#{method}_id"
+        :"#{_reflection.name}_id"
       end
     end
 

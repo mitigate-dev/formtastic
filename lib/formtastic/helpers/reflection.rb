@@ -6,20 +6,28 @@ module Formtastic
       # reflection object.
       def reflection_for(method) # @private
         if @object.class.respond_to?(:reflect_on_association)
-          Formtastic::Reflection.new @object.class.reflect_on_association(method)
+          reflection_on_association @object.class.reflect_on_association(method)
         elsif @object.class.respond_to?(:associations) # MongoMapper uses the 'associations(method)' instead
-          Formtastic::Reflection.new @object.class.associations[method]
+          reflection_on_association @object.class.associations[method]
         end
       end
 
       def association_macro_for_method(method) # @private
         reflection = reflection_for(method)
-        reflection.macro
+        reflection.macro if reflection
       end
 
       def association_primary_key_for_method(method) # @private
         reflection = reflection_for(method)
         reflection ? reflection.primary_key : method.to_sym
+      end
+
+      private
+
+      def reflection_on_association(reflection)
+        return unless reflection
+
+        Formtastic::Reflection.new(reflection)
       end
     end
   end
