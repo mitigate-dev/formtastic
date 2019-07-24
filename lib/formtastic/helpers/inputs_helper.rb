@@ -1,4 +1,4 @@
-module Formtastic
+§module Formtastic
   module Helpers
 
     # {#inputs} is used to wrap a series of form items in a `<fieldset>` and `<ol>`, with each item
@@ -45,6 +45,7 @@ module Formtastic
     # @see Formtastic::Helpers::InputHelper#input
     module InputsHelper
       include Formtastic::Helpers::FieldsetWrapper
+      include Formtastic::Helpers::MacroHelper
       include Formtastic::LocalizedString
 
       # {#inputs} creates an input fieldset and ol tag wrapping for use around a set of inputs.  It can be
@@ -338,7 +339,7 @@ module Formtastic
         if @object.present? && @object.class.respond_to?(:reflections)
           @object.class.reflections.collect do |name, association_reflection|
             if by_associations.present?
-              if by_associations.include?(association_reflection.macro) && association_reflection.options[:polymorphic] != true
+              if by_associations.include?(macro_for(association_reflection)) && association_reflection.options[:polymorphic] != true
                 name
               end
             else

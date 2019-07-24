@@ -14,7 +14,7 @@ module Formtastic
 
       def association_macro_for_method(method) # @private
         reflection = reflection_for(method)
-        reflection.macro if reflection
+        macro_for(reflection) if reflection
       end
 
       def association_primary_key_for_method(method) # @private

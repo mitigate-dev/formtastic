@@ -156,6 +156,7 @@ module Formtastic
     class SelectInput
       include Base
       include Base::Collections
+      include Formtastic::Helpers::MacroHelper
 
       def initialize(*args)
         super
@@ -215,7 +216,7 @@ module Formtastic
       end
 
       def multiple_by_association?
-        reflection && [ :has_many, :has_and_belongs_to_many ].include?(reflection.macro)
+        reflection && [ :has_many, :has_and_belongs_to_many ].include?(macro_for(reflection))
       end
 
       def multiple_by_options?
