@@ -215,15 +215,7 @@ module Formtastic
       end
 
       def multiple_by_association?
-        return false unless reflection
-
-        reflection_macro = if reflection.respond_to?(:macro)
-          reflection.macro
-        else
-          reflection.class.name.demodulize.underscore.to_sym
-        end
-
-        [ :has_many, :has_and_belongs_to_many ].include?(reflection_macro)
+        reflection && [ :has_many, :has_and_belongs_to_many ].include?(reflection.macro)
       end
 
       def multiple_by_options?

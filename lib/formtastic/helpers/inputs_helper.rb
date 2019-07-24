@@ -339,13 +339,7 @@ module Formtastic
           @object.class.reflections.collect do |name, reflection|
             association_reflection = Formtastic::Reflection.new(reflection)
             if by_associations.present?
-              reflection_macro = if association_reflection.respond_to?(:macro)
-                association_reflection.macro
-              else
-                association_reflection.class.name.demodulize.underscore.to_sym
-              end
-
-              if by_associations.include?(reflection_macro) && association_reflection.options[:polymorphic] != true
+              if by_associations.include?(association_reflection.macro) && association_reflection.options[:polymorphic] != true
                 name
               end
             else
