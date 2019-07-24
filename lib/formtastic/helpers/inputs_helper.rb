@@ -45,7 +45,6 @@
     # @see Formtastic::Helpers::InputHelper#input
     module InputsHelper
       include Formtastic::Helpers::FieldsetWrapper
-      include Formtastic::Helpers::MacroHelper
       include Formtastic::LocalizedString
 
       # {#inputs} creates an input fieldset and ol tag wrapping for use around a set of inputs.  It can be
@@ -339,7 +338,13 @@
         if @object.present? && @object.class.respond_to?(:reflections)
           @object.class.reflections.collect do |name, association_reflection|
             if by_associations.present?
-              if by_associations.include?(macro_for(association_reflection)) && association_reflection.options[:polymorphic] != true
+              reflection_macro = if association_reflection.respond_to?(:macro)
+                association_reflection.macro
+              else
+                association_reflection.class.name.demodulize.underscore.to_sym
+              end
+
+              if by_associations.include?(reflection_macro) && association_reflection.options[:polymorphic] != true
                 name
               end
             else
