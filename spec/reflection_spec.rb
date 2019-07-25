@@ -9,7 +9,7 @@ RSpec.describe 'Formtastic::Reflection' do
     mock_everything
   end
 
-  class ReflectionTester
+  class ReflectionMock
     def initialize(model_object)
       @object = model_object
     end
@@ -35,7 +35,7 @@ RSpec.describe 'Formtastic::Reflection' do
     end
   end
 
-  let(:regular_reflection) { ReflectionTester.new(@new_post) }
+  let(:regular_reflection) { ReflectionMock.new(@new_post) }
   let(:mongoid7_reflection) { Mongoid::BelongsTo.new(@new_post) }
   let(:mongoid_reflection) do
     ::MongoidReflectionMock.new('reflection',
