@@ -19,7 +19,7 @@ module Formtastic
 
       def association_primary_key_for_method(method) # @private
         reflection = reflection_for(method)
-        reflection ? reflection.primary_key : method.to_sym
+        reflection ? reflection.primary_key(method) : method.to_sym
       end
 
       private
