@@ -10,7 +10,6 @@ RSpec.describe 'Formtastic::Reflection' do
   end
 
   class ReflectionTester
-    include Formtastic::Helpers::Reflection
     def initialize(model_object)
       @object = model_object
     end
