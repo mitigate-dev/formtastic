@@ -52,7 +52,7 @@ RSpec.describe 'Formtastic::Reflection' do
     end
 
     context 'reflection as mongoid < 7.0 object' do
-      it 'returns :belongs_to from macro method' do
+      it 'returns :referenced_in from macro method' do
         expect(Formtastic::Reflection.new(mongoid_reflection).macro).to eq(:referenced_in)
       end
     end
@@ -68,7 +68,7 @@ RSpec.describe 'Formtastic::Reflection' do
     let(:method) { :reviewers }
 
     context 'reflection as regular object' do
-      it 'returns :reviewer_id from macro method' do
+      it 'returns :reviewer_id' do
         expect(Formtastic::Reflection.new(regular_reflection).primary_key(method)).to eq(:reviewer_id)
       end
     end
