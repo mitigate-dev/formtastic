@@ -19,7 +19,7 @@ RSpec.describe 'Formtastic::Reflection' do
     end
 
     def options
-        { foreign_key: 'reviewer_id' }
+      { foreign_key: 'reviewer_id' }
     end
   end
 
